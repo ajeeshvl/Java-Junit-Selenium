@@ -8,11 +8,12 @@ node {
     stage 'Compile'
     sh "${mvnHome}/bin/mvn compile"
     stage 'Test'
-    sauce('saucelabs') {
-        sauceconnect(useGeneratedTunnelIdentifier: true, verboseLogging: true) {
-            sh "${mvnHome}/bin/mvn test"
-        }
-    }
+    //sauce('saucelabs') {
+    //    sauceconnect(useGeneratedTunnelIdentifier: true, verboseLogging: true) {
+    //        sh "${mvnHome}/bin/mvn test"
+    //    }
+    //}
+    sh "${mvnHome}/bin/mvn test"
     stage 'Collect Results'
     step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
     step([$class: 'SauceOnDemandTestPublisher'])
